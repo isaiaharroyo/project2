@@ -1,4 +1,5 @@
-var weatherPromise = d3.json("https://www.metaweather.com/api/location/2487956/");
+var weatherPromise = 
+    d3.json("https://ghibliapi.herokuapp.com/films");
 
 weatherPromise.then(
 
@@ -11,10 +12,23 @@ function(weather)
 function(err)
     {
         setHeader("No Weather Today");
-        console.log(err);
+        console.log("what happened?",err);
     })
 
 var setHeader = function(message)
 {
     d3.select("h1").text(message);
 }
+
+console.log(
+    d3.select ("#filmBar")
+    .property("value")
+)
+
+
+d3.select("#filmBar")
+    .on("input", function()
+    {
+    console.log(this.value)
+    //alert("something happened")
+    })
