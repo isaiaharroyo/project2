@@ -1,5 +1,11 @@
-var weatherPromise = 
-    d3.json("https://ghibliapi.herokuapp.com/films");
+/* var weatherPromise = 
+    d3.json("https://national-weather-service.p.rapidapi.com/products/types/%7BtypeId%7D", {
+	"method": "GET",
+	"headers": {
+		"x-rapidapi-host": "national-weather-service.p.rapidapi.com",
+		"x-rapidapi-key": "02852ea2a3msh7a2dd6a12e10041p14e36djsnacea46edb14a"
+	}
+})
 
 weatherPromise.then(
 
@@ -13,7 +19,7 @@ function(err)
     {
         setHeader("No Weather Today");
         console.log("what happened?",err);
-    })
+    }) */
 
 var setHeader = function(message)
 {
@@ -26,9 +32,8 @@ console.log(
 )
 
 
-d3.select("#filmBar")
-    .on("input", function()
+d3.select("#button")
+    .on("click", function()
     {
-    console.log(this.value)
-    //alert("something happened")
+    console.log(d3.select("#filmBar").property("value"))
     })
