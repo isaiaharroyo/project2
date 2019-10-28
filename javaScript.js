@@ -126,13 +126,17 @@ var makeDisplay = function(data)
     makeDiv.append("img")
     .attr("src", function(period)
          {
-            if (period.shortForecast == "Cloudy") 
+            if (period.shortForecast.includes("Mostly"))
                 {
-                    return "img/cloudy.png";
+                    return "img/sunnyCloudy.png";
                 }
-            else if (period.shortForecast == "Sunny")
+            else if (period.shortForecast.includes("Sunny")==true)
                 {
                     return "img/sun.png";                
+                }
+            else if (period.shortForecast.includes("Cloudy")==true) 
+                {
+                    return "img/cloudy.png";
                 }
             else
                 {
@@ -140,3 +144,8 @@ var makeDisplay = function(data)
                 }
         })
 }
+
+
+// or is ||
+
+//.includes(string)
