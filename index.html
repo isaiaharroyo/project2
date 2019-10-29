@@ -3,17 +3,23 @@
     <head>
     
         <script src = "https://d3js.org/d3.v5.min.js"></script>
+        <link href="stylesheet.css" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Lato|Staatliches&display=swap" rel="stylesheet">
                 
     </head>
     
     <body>
         <h1>Enter Location to Check Weather</h1>
         
+        <div id="cityBox">
         City: <input id="city" type ="text" name="search film">
-        <br />
+        </div>
+        
+        <div id="stateBox">
         State: <input id="state" type ="text" name="search film">
-        <br />
-        <button id = "button">Try</button>
+        </div>
+        
+        <button id = "button">Get Weather</button>
         
         <div id = "foreBody">
             

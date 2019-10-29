@@ -13,6 +13,7 @@ var coordURL = function(city,state)
 d3.select("#button")
     .on("click", function()
         {
+        setHeader("Loading Weather Data")
         var city = d3.select("#city").property("value");
         var state = d3.select("#state").property("value");
         coordURL(city,state);
@@ -29,6 +30,7 @@ d3.select("#button")
         function(err)
         {
             console.log("error",err);
+            setHeader("Weather Unavaliable: check spelling");
         })
         })
 
@@ -49,6 +51,7 @@ var getCoord = function(data)
         function(err)
         {
             console.log("error",err);
+            setHeader("Weather Unavaliable: check spelling");
         })
 }
 
@@ -71,7 +74,7 @@ var getForecast = function(data)
         function(err)
         {
             console.log("error",err);
-            setHeader("Weather Unavaliable: check spelling")
+            setHeader("Weather Unavaliable: check spelling");
         })
 } //end of API access
 
@@ -80,14 +83,52 @@ var makeDisplay = function(data)
 {
     var foreArray = data.properties.periods;
     
-    d3.select("#foreBody").append("h1").text(d3.select("#city").property("value") + 
-                    ", " + d3.select("#state").property("value"));
+    d3.select("#foreBody")
+    .append("h1")
+    .text(d3.select("#city").property("value") + 
+                    ", " + d3.select("#state").property("value"))
+    
+    /*d3.select("#foreBody")
+    .append("button")
+    .text("Simple Display")
+    .attr("id", "simple")
+    
+    console.log(foreArray)
+    
+    var makeSimple = function(foreArray)
+    {
+        console.log(foreArray)
+    }
+
+    //makeSimple(foreArray)*/
+    
+    d3.select("#simple")
+    .on("click", function(foreArray)
+        {
+                console.log("got here");
+        
+                d3.selectAll("#forecast")
+                .remove();
+
+                d3.select("#foreBody")
+                .append("table")
+                .attr("id", "TABLE");
+        
+                console.log(foreArray);
+        
+                /*d3.select("#TABLE")
+                .selectAll("tr")
+                .data(foreArray)
+                .enter()
+                .append("tr");*/
+        })
     
     var makeDiv = d3.select("#foreBody")
     .selectAll("div")
     .data(foreArray)
     .enter()
     .append("div")
+    .attr("id", "forecast")
     .attr("class",function(period)
          {
            return period.isDaytime;
@@ -108,7 +149,7 @@ var makeDisplay = function(data)
     makeDiv.append("h3")
     .text(function(period)
          {
-            return period.temperature;
+            return period.temperature + " "+"\xB0" +"F";
         })
     
     makeDiv.append("h3")
@@ -126,21 +167,45 @@ var makeDisplay = function(data)
     makeDiv.append("img")
     .attr("src", function(period)
          {
-            if (period.shortForecast.includes("Mostly"))
+            if (period.shortForecast.includes("Thunder"))
+                {
+                    return "img/thunderstorm.png";
+                }
+            else if (period.shortForecast.includes("Mostly"))
                 {
                     return "img/sunnyCloudy.png";
                 }
-            else if (period.shortForecast.includes("Sunny")==true)
+            else if(period.shortForecast.includes("Heavy"))
+                {
+                    return "img/heavyRain.png";
+                }
+            else if (period.shortForecast.includes("Rain"))
+                {
+                    return "img/rain.png";
+                }
+            else if (period.shortForecast.includes("Snow"))
+                {
+                    return "img/snow.png";
+                }
+            else if (period.shortForecast.includes("Sunny"))
                 {
                     return "img/sun.png";                
                 }
-            else if (period.shortForecast.includes("Cloudy")==true) 
+            else if (period.shortForecast.includes("Cloudy")) 
                 {
                     return "img/cloudy.png";
                 }
             else
                 {
-                    return "   ";
+                    if (period.isDaytime == true)
+                    {
+                        return "img/sun.png";
+                    }
+                    
+                    else
+                    {
+                        return "img/moon.png";
+                    }
                 }
         })
 }
