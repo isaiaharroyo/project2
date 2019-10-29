@@ -88,39 +88,19 @@ var makeDisplay = function(data)
     .text(d3.select("#city").property("value") + 
                     ", " + d3.select("#state").property("value"))
     
-    /*d3.select("#foreBody")
+    d3.select("#foreBody")
     .append("button")
     .text("Simple Display")
     .attr("id", "simple")
     
     console.log(foreArray)
     
-    var makeSimple = function(foreArray)
-    {
-        console.log(foreArray)
-    }
-
-    //makeSimple(foreArray)*/
-    
     d3.select("#simple")
-    .on("click", function(foreArray)
+    .on("click", function()
         {
                 console.log("got here");
         
-                d3.selectAll("#forecast")
-                .remove();
-
-                d3.select("#foreBody")
-                .append("table")
-                .attr("id", "TABLE");
-        
-                console.log(foreArray);
-        
-                /*d3.select("#TABLE")
-                .selectAll("tr")
-                .data(foreArray)
-                .enter()
-                .append("tr");*/
+                makeSimpleDisplay(foreArray);
         })
     
     var makeDiv = d3.select("#foreBody")
@@ -149,22 +129,101 @@ var makeDisplay = function(data)
     makeDiv.append("h3")
     .text(function(period)
          {
-            return period.temperature + " "+"\xB0" +"F";
+            return "Temp: " + period.temperature + " "+"\xB0" +"F";
         })
     
     makeDiv.append("h3")
     .text(function(period)
          {
-            return period.windSpeed;
+            return "Wind Speed: " + period.windSpeed;
         })
     
     makeDiv.append("h3")
     .text(function(period)
          {
-            return period.windDirection;
+            return "Wind Direction: " + period.windDirection;
         })
     
     makeDiv.append("img")
+    .attr("src", function(period)
+         {
+            if (period.shortForecast.includes("Thunder"))
+                {
+                    return "img/thunderstorm.png";
+                }
+            else if (period.shortForecast.includes("Mostly"))
+                {
+                    return "img/sunnyCloudy.png";
+                }
+            else if(period.shortForecast.includes("Heavy"))
+                {
+                    return "img/heavyRain.png";
+                }
+            else if (period.shortForecast.includes("Rain"))
+                {
+                    return "img/rain.png";
+                }
+            else if (period.shortForecast.includes("Snow"))
+                {
+                    return "img/snow.png";
+                }
+            else if (period.shortForecast.includes("Sunny"))
+                {
+                    return "img/sun.png";                
+                }
+            else if (period.shortForecast.includes("Cloudy")) 
+                {
+                    return "img/cloudy.png";
+                }
+            else
+                {
+                    if (period.isDaytime == true)
+                    {
+                        return "img/sun.png";
+                    }
+                    
+                    else
+                    {
+                        return "img/moon.png";
+                    }
+                }
+        })
+}
+
+
+var makeSimpleDisplay = function(foreArray)
+{
+    //var foreArray = crazyforecast.properties.periods;
+    
+    d3.selectAll("#forecast")
+    .remove();
+    
+    d3.select("#foreBody")
+    .append("table")
+    .attr("id", "TABLE");
+    
+    var makeTable = d3.select("#TABLE")
+    .selectAll("tr")
+    .data(foreArray)
+    .enter()
+    .append("tr");
+    
+    //because we didn't bind data to the button, it needed to be function() and not function(foreArray)
+    
+    makeTable.append("td")
+    .text(function(period)
+        {
+            return period.name
+        });
+    
+    makeTable.append("td")
+    .text(function(period)
+        {
+            return period.temperature
+        });
+    
+    makeTable.append("td")
+    .append("img")
     .attr("src", function(period)
          {
             if (period.shortForecast.includes("Thunder"))
