@@ -88,9 +88,12 @@ var makeDisplay = function(data)
     .text(d3.select("#city").property("value") + 
                     ", " + d3.select("#state").property("value"))
     
-    d3.select("#foreBody")
-    .append("button")
-    .text("Simple Display")
+    var ButtonDiv=d3.select("#foreBody")
+    .append("div")
+    .attr("id","CENTER")
+    
+    ButtonDiv.append("button")
+    .text("Week at a Glance")
     .attr("id", "simple")
     
     console.log(foreArray)
@@ -202,27 +205,38 @@ var makeSimpleDisplay = function(foreArray)
     .append("table")
     .attr("id", "TABLE");
     
-    var makeTable = d3.select("#TABLE")
-    .selectAll("tr")
-    .data(foreArray)
-    .enter()
+    var makeRow1 = d3.select("#TABLE")
     .append("tr");
     
     //because we didn't bind data to the button, it needed to be function() and not function(foreArray)
     
-    makeTable.append("td")
+    makeRow1.selectAll("td")
+    .data(foreArray)
+    .enter()
+    .append("td")
     .text(function(period)
         {
             return period.name
         });
     
-    makeTable.append("td")
+    var makeRow2 = d3.select("TABLE")
+    .append("tr");
+    
+   makeRow2.selectAll("td")
+    .data(foreArray)
+    .enter()
+    .append("td")
     .text(function(period)
         {
-            return period.temperature
+            return period.temperature + " "+"\xB0" +"F";
         });
+    var makeRow3 = d3.select("TABLE")
+    .append("tr");
     
-    makeTable.append("td")
+    makeRow3.selectAll("td")
+    .data(foreArray)
+    .enter()
+    .append("td")
     .append("img")
     .attr("src", function(period)
          {

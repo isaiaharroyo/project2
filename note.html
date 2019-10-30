@@ -1,0 +1,36 @@
+<html>
+    <head>
+    <title>Notes Page</title>
+    <link href="stylesheet.css" rel="stylesheet" type="text/css">
+    </head>
+<body>
+    <h1>Weather Website Notes</h1>
+    
+    <p>
+        The main feature of our page is that we use a process of three promises through two different API’s in order to obtain the data for our forecast page. In order to access the first API, the user types in a city and state. When they click the button “Get Weather” it calls the function that starts our “chain reaction” of promises. We use string concatenation to get the url that is used in the first promise, which accesses the geocoding API which returns coordinates. This promise calls a function which once again uses string concatenation to use the coordinates to access the national weather service API for that location. This second promise contains a function which calls a third and final promise which gets the forecast data for that location.
+    </p>
+    
+    <p>
+    We then used the forecast data to create a detailed forecast page which includes: time period, temperature, wind speed, wind direction, and a written description of the predicted weather. This is accompanied by an icon (which is determined by a series of if statements that search the description for key words).
+    </p>
+    
+    <p>
+    The “Week at a Glance” runs a function once it is clicked which reorganizes the data from the first page into a simplified table format. The table is meant to resemble the weekly forecast that one might see on the news, and provide a quick overview of weather conditions.
+    </p>
+    
+    <p>
+    Our use of CSS allowed us to create a simple and easy-to-look-at interface. We gave each time div an attribute based upon whether it was day or night and changed the color schemes accordingly. In our table format, CSS was used to divide the days, but not chop up the information within that day. We used 
+        <a href="https://fonts.google.com">https://fonts.google.com</a> and <a href="https://coolors.co">https://coolors.co</a> to choose colors and fonts which meshed well together and were visually pleasing. 
+    </p>
+    
+    <p>
+    We used the geocoding API found at: <a href="https://opencagedata.com/api">https://opencagedata.com/api</a> 
+    </p>
+    
+    <p>
+    Along with the National Weather API found at: <a href="https://www.weather.gov/documentation/services-web-api#">https://www.weather.gov/documentation/services-web-api#</a>
+    </p>
+    
+    
+</body>
+</html>

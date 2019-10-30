@@ -22,7 +22,7 @@ img
     margin-bottom: 15px;
 }
 
-#forebody div
+#forecast
 {
     padding: 5px;
     margin-bottom: 10px;
@@ -70,6 +70,33 @@ h3
     clear:left;
     float: left;
     overflow: auto;
-    margin-left: 2%;
-    
+    margin-left: 2%; 
+}
+
+#TABLE
+{
+    /*width: 120%;*/
+    border: 2px;
+    border-style: solid;
+    border-collapse: collapse;
+    background-color: #e5e5e5;
+}
+
+#TABLE img
+{
+    width: 100%;
+}
+
+td
+{
+    border-right-style: solid;
+    padding: 5px;
+    text-align:center;
+}
+
+#CENTER
+{
+    text-align:center;
+    border-style:none;
+    margin-bottom: 15px;
 }
