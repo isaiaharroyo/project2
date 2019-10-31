@@ -156,7 +156,16 @@ var makeDisplay = function(data)
                 }
             else if (period.shortForecast.includes("Mostly"))
                 {
-                    return "img/sunnyCloudy.png";
+                    
+                    if (period.isDaytime == true)
+                    {
+                        return "img/sunnyCloudy.png";
+                    }
+                    
+                    else
+                    {
+                        return "img/cloudy.png";
+                    }
                 }
             else if(period.shortForecast.includes("Heavy"))
                 {
@@ -246,7 +255,15 @@ var makeSimpleDisplay = function(foreArray)
                 }
             else if (period.shortForecast.includes("Mostly"))
                 {
-                    return "img/sunnyCloudy.png";
+                    if (period.isDaytime == true)
+                    {
+                        return "img/sunnyCloudy.png";
+                    }
+                    
+                    else
+                    {
+                        return "img/cloudy.png";
+                    }
                 }
             else if(period.shortForecast.includes("Heavy"))
                 {
