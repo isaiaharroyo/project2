@@ -83,6 +83,9 @@ var makeDisplay = function(data)
 {
     var foreArray = data.properties.periods;
     
+    d3.selectAll("#foreBody *")
+    .remove();
+    
     d3.select("#foreBody")
     .append("h1")
     .text(d3.select("#city").property("value") + 
@@ -93,17 +96,120 @@ var makeDisplay = function(data)
     .attr("id","CENTER")
     
     ButtonDiv.append("button")
-    .text("Week at a Glance")
+    .text("View More Detail")
     .attr("id", "simple")
-    
-    console.log(foreArray)
-    
+        
     d3.select("#simple")
     .on("click", function()
         {
-                console.log("got here");
-        
-                makeSimpleDisplay(foreArray);
+                makeComplexDisplay(data);
+        })
+    
+    d3.select("#foreBody")
+    .append("table")
+    .attr("id", "TABLE");
+    
+    var makeRow1 = d3.select("#TABLE")
+    .append("tr");
+    
+    //because we didn't bind data to the button, it needed to be function() and not function(foreArray)
+    
+    makeRow1.selectAll("td")
+    .data(foreArray)
+    .enter()
+    .append("td")
+    .text(function(period)
+        {
+            return period.name
+        });
+    
+    var makeRow2 = d3.select("TABLE")
+    .append("tr");
+    
+   makeRow2.selectAll("td")
+    .data(foreArray)
+    .enter()
+    .append("td")
+    .text(function(period)
+        {
+            return period.temperature + " "+"\xB0" +"F";
+        });
+    var makeRow3 = d3.select("TABLE")
+    .append("tr");
+    
+    makeRow3.selectAll("td")
+    .data(foreArray)
+    .enter()
+    .append("td")
+    .append("img")
+    .attr("src", function(period)
+         {
+            if (period.shortForecast.includes("Thunder"))
+                {
+                    return "img/thunderstorm.png";
+                }
+            else if (period.shortForecast.includes("Mostly"))
+                {
+                    if (period.isDaytime == true)
+                    {
+                        return "img/sunnyCloudy.png";
+                    }
+                    
+                    else
+                    {
+                        return "img/cloudy.png";
+                    }
+                }
+            else if(period.shortForecast.includes("Heavy"))
+                {
+                    return "img/heavyRain.png";
+                }
+            else if (period.shortForecast.includes("Rain"))
+                {
+                    return "img/rain.png";
+                }
+            else if (period.shortForecast.includes("Snow"))
+                {
+                    return "img/snow.png";
+                }
+            else if (period.shortForecast.includes("Sunny"))
+                {
+                    return "img/sun.png";                
+                }
+            else if (period.shortForecast.includes("Cloudy")) 
+                {
+                    return "img/cloudy.png";
+                }
+            else
+                {
+                    if (period.isDaytime == true)
+                    {
+                        return "img/sun.png";
+                    }
+                    
+                    else
+                    {
+                        return "img/moon.png";
+                    }
+                }
+        })
+}
+
+
+var makeComplexDisplay = function(data)
+{
+    //var foreArray = crazyforecast.properties.periods;
+    
+    var foreArray = data.properties.periods;
+    
+    d3.selectAll("#TABLE")
+    .remove();
+    
+    d3.select("#simple")
+    .text("Back")
+    .on("click",function()
+        {
+            makeDisplay(data);
         })
     
     var makeDiv = d3.select("#foreBody")
@@ -157,104 +263,6 @@ var makeDisplay = function(data)
             else if (period.shortForecast.includes("Mostly"))
                 {
                     
-                    if (period.isDaytime == true)
-                    {
-                        return "img/sunnyCloudy.png";
-                    }
-                    
-                    else
-                    {
-                        return "img/cloudy.png";
-                    }
-                }
-            else if(period.shortForecast.includes("Heavy"))
-                {
-                    return "img/heavyRain.png";
-                }
-            else if (period.shortForecast.includes("Rain"))
-                {
-                    return "img/rain.png";
-                }
-            else if (period.shortForecast.includes("Snow"))
-                {
-                    return "img/snow.png";
-                }
-            else if (period.shortForecast.includes("Sunny"))
-                {
-                    return "img/sun.png";                
-                }
-            else if (period.shortForecast.includes("Cloudy")) 
-                {
-                    return "img/cloudy.png";
-                }
-            else
-                {
-                    if (period.isDaytime == true)
-                    {
-                        return "img/sun.png";
-                    }
-                    
-                    else
-                    {
-                        return "img/moon.png";
-                    }
-                }
-        })
-}
-
-
-var makeSimpleDisplay = function(foreArray)
-{
-    //var foreArray = crazyforecast.properties.periods;
-    
-    d3.selectAll("#forecast")
-    .remove();
-    
-    d3.select("#foreBody")
-    .append("table")
-    .attr("id", "TABLE");
-    
-    var makeRow1 = d3.select("#TABLE")
-    .append("tr");
-    
-    //because we didn't bind data to the button, it needed to be function() and not function(foreArray)
-    
-    makeRow1.selectAll("td")
-    .data(foreArray)
-    .enter()
-    .append("td")
-    .text(function(period)
-        {
-            return period.name
-        });
-    
-    var makeRow2 = d3.select("TABLE")
-    .append("tr");
-    
-   makeRow2.selectAll("td")
-    .data(foreArray)
-    .enter()
-    .append("td")
-    .text(function(period)
-        {
-            return period.temperature + " "+"\xB0" +"F";
-        });
-    var makeRow3 = d3.select("TABLE")
-    .append("tr");
-    
-    makeRow3.selectAll("td")
-    .data(foreArray)
-    .enter()
-    .append("td")
-    .append("img")
-    .attr("src", function(period)
-         {
-            if (period.shortForecast.includes("Thunder"))
-                {
-                    return "img/thunderstorm.png";
-                }
-            else if (period.shortForecast.includes("Mostly"))
-                {
                     if (period.isDaytime == true)
                     {
                         return "img/sunnyCloudy.png";

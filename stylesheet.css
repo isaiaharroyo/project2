@@ -9,7 +9,7 @@ body
     font-size: 18px;
 }
 
-h1
+h1,h2
 {
     font-family: "Staatliches", cursive;
 }
@@ -99,4 +99,9 @@ td
     text-align:center;
     border-style:none;
     margin-bottom: 15px;
+}
+
+h2
+{
+    padding-left: 10px;
 }
